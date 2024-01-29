@@ -59,7 +59,6 @@ function signup() {
         const userData = new UserModel(user.email,user.uid,name).toJson()
         await setDoc(userRef, userData);
         alert(user.email + " Sign up successfully!");
-        console.log(res)
     })
     .catch((error) => {
       const errorCode = error.code;

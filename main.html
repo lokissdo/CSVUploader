@@ -10,7 +10,7 @@
 <body>
     <script type="module">
         import { app, auth, db } from './firebase.js'
-        import { doc, getDoc, setDoc, addDoc, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { doc, getDoc, setDoc, addDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
         const TREE_COLLECTION_NAME = "trees"
         // Function to upload CSV data to Firestore
         async function uploadCSVData(csvData) {
@@ -30,10 +30,10 @@
                     console.log(treeRef.id);
                 }
                 alert("Insert tree batch successfully");
-            }catch(e){
+            } catch (e) {
                 alert("Error" + e);
             }
-         
+
         }
 
         // Function to read and parse CSV file
@@ -95,12 +95,77 @@
 
         // Attach an event listener to the input file element
         document.getElementById('csvFile').addEventListener('change', handleFileSelect, false);
+
+
+
+        async function getAllTrees() {
+            try {
+                const treeCollectionRef = collection(db, TREE_COLLECTION_NAME);
+                const snapshot = await getDocs(treeCollectionRef);
+                const trees = [];
+
+                snapshot.forEach((doc) => {
+                    trees.push(doc.data());
+                });
+
+                console.log(trees);
+                renderTreesTable(trees);
+            }
+            catch (e) {
+                alert("Error" + e)
+            }
+
+        }
+
+        function renderTreesTable(trees) {
+            const tableContainer = document.getElementById('treesTableContainer');
+            const table = document.createElement('table');
+
+            // Create headers based on the keys of the first tree in the array
+            const headers = Object.keys(trees[0] || {});
+            const headerRow = document.createElement('tr');
+
+            headers.forEach((header) => {
+                const th = document.createElement('th');
+                th.textContent = header;
+                headerRow.appendChild(th);
+            });
+
+            table.appendChild(headerRow);
+
+            // Create rows based on the key-value pairs in each tree
+            trees.forEach((tree) => {
+                const row = document.createElement('tr');
+
+                headers.forEach((header) => {
+                    const td = document.createElement('td');
+                    td.textContent = tree[header] || ''; // Handle undefined values
+                    row.appendChild(td);
+                });
+
+                table.appendChild(row);
+            });
+
+            // Clear previous table, if any
+            tableContainer.innerHTML = '';
+            tableContainer.appendChild(table);
+        }
+
+        document.getElementById('getAllTreesButton').addEventListener('click', getAllTrees, false);
     </script>
+    </script>
+    <div class="main-section">
+        <div>
+            <input type="file" id="csvFile" accept=".csv">
 
-    <!-- Input file element for selecting CSV file -->
-    <input type="file" id="csvFile" accept=".csv">
+        </div>
+        <div>
+            <button id="getAllTreesButton">Get All Trees</button>
 
-</body>
+        </div>
+        <div id="treesTableContainer"></div>
+    </div>
+
 </body>
 
 </html>
