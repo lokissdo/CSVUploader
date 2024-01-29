@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Slide Navbar</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+<script type="module" src="index.js"></script>
+</head>
+<body>
+	<div class="main">  	
+		<input type="checkbox" id="chk" aria-hidden="true">
+
+			<div class="signup">
+				<form id="signupForm">
+					<label for="chk" aria-hidden="true">Sign up</label>
+					<input  id="signup_name" type="text" name="txt" placeholder="User name" required="">
+					<input id="signup_email" type="email" name="email" placeholder="Email" required="">
+					<input id="signup_password" type="password" name="pswd" placeholder="Password" required="">
+					<button  onclick="signup()">Sign up</button>
+				</form>
+			</div>
+
+			<div class="login">
+				<form id="loginForm">
+					<label for="chk" aria-hidden="true">Login</label>
+					<input id="login_email" type="email" name="email" placeholder="Email" required="">
+					<input  id="login_password" type="password" name="pswd" placeholder="Password" required="">
+					<button onclick="validate()">Login</button>
+				</form>
+			</div>
+	</div>
+
+	<script>
+		document.getElementById('signupForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+        });
+	</script>
+</body>
+
+</html>

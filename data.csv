@@ -1,0 +1,11 @@
+id,name,height,origin,radius
+1,tree1,10cm,origin1,1cm
+2,tree2,20cm,origin2,2cm
+3,tree3,30cm,origin3,3cm
+4,tree4,40cm,origin4,4cm
+5,tree5,50cm,origin5,5cm
+6,tree6,60cm,origin6,6cm
+7,tree7,70cm,origin7,7cm
+8,tree8,80cm,origin8,8cm
+9,tree9,90cm,origin9,9cm
+10,tree10,100cm,origin10,10cm
